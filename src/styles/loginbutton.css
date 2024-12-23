@@ -1,0 +1,39 @@
+:root{
+    --login-main-color: #929BFF;
+}
+
+.loginbutton{
+    border: 1px solid var(--main-color);
+    background: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: "Jersey 10", sans-serif;
+    margin: 10px;
+    color: #fff;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+.loginbutton:hover {
+    border: none;
+}
+
+.loginbutton::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0%;
+    background: var(--main-color);
+    z-index: -1;
+    transition: 0.8s;
+    border-radius: 50% 50% 0 0;
+    height: 180%;
+}
+
+.loginbutton:hover::before{
+    height: 0%;
+}
