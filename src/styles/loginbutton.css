@@ -1,6 +1,10 @@
 :root{
     --login-main-color: #929BFF;
+    --main-color: #29339B;
 }
+
+
+
 
 .loginbutton{
     border: 1px solid var(--main-color);
@@ -9,12 +13,20 @@
     font-size: 20px;
     font-family: "Jersey 10", sans-serif;
     margin: 10px;
-    color: #fff;
     transition: 0.8s;
     position: relative;
     overflow: hidden;
     border-radius: 7px;
+    cursor: pointer;
 }
+
+.loginbutton a {
+    color: var(--main-color);
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+}
+
 
 .loginbutton:hover {
     border: none;
@@ -27,13 +39,24 @@
     bottom: 0;
     width: 100%;
     height: 0%;
-    background: var(--main-color);
-    z-index: -1;
+    background: var(--login-main-color);
+    z-index: 0;
     transition: 0.8s;
     border-radius: 50% 50% 0 0;
     height: 180%;
 }
 
+
 .loginbutton:hover::before{
     height: 0%;
 }
+
+
+
+
+
+
+
+
+
+

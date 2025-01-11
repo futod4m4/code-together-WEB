@@ -21,13 +21,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
-  height: 100%; /* Устанавливает 100% высоты для корневых элементов */
-  min-height: 100vh;
-  margin: 0;
-  display: flex;
-  flex-direction: column; /* Flexbox для body */
-}
 
 
 

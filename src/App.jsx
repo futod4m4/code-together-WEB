@@ -1,38 +1,24 @@
-import titleImage from './assets/title.png'
-import './styles/button.css'
-import './styles/App.css'
-import './styles/loginbutton.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './pages/Home.jsx'
+import Login from './pages/Auth/Login.jsx'
+import Register from "./pages/Auth/Register.jsx";
+import Room from "./pages/Rooms/Room.tsx"
+import CreateNewRoom from "./pages/Rooms/NewRoom.jsx";
+
 
 function App() {
   return (
-    <>
-  <header>
-        <div className="header">
-            <img className="titleimage"  src={titleImage} />
-            <button className="loginbutton">
-                Log in 
-            </button>
-        </div>
-    </header>
-    <div className="main">
-        <div className="block">
-            <div className="codeinputdiv">
-                <p className="codeinputp">Enter room code</p>
-                <input className="codeinput" type="text" autocomplete="off" />
-            </div>
-                <button className ="joinbutton">
-                        Join the room
-                </button>
-                <button className = "createbutton">
-                        Or create your own
-                </button>
-        </div>
-    </div>
-    <footer>
-            <p>© Fedor Semerenko 2024</p>
-    </footer>
-    </>
-  )
-}
+      <Router>
+          <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/registration" element={<Register />} />
+              <Route path="/login" element={<Login />} />     
+              <Route path="/room/:joinCode" element={<Room />} />    
+              <Route path="/room/create" element={<CreateNewRoom />} />     
+          </Routes>
+      </Router>
+  );
+};
 
-export default App
+export default App;
+

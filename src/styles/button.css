@@ -6,6 +6,8 @@
 }
 
 .joinbutton {
+    user-select: none;
+    margin-top: 10px;
     padding: 1em 3em;
     width: 100%;
     border: 0.25em solid var(--glow-color);

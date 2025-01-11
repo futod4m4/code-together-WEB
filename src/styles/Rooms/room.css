@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+  }
+  
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+
+
+  
+  .yRemoteSelection {
+      background-color: rgb(250, 129, 0, .5)
+  }
+  .yRemoteSelectionHead {
+      position: absolute;
+      border-left: orange solid 2px;
+      border-top: orange solid 2px;
+      border-bottom: orange solid 2px;
+      height: 100%;
+      box-sizing: border-box;
+  }
+  .yRemoteSelectionHead::after {
+      position: absolute;
+      content: ' ';
+      border: 3px solid orange;
+      border-radius: 4px;
+      left: -4px;
+      top: -5px;
+  }
+
+  .room-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #1e1e1e;
+    height: 60px;
+    width: 100%;
+    
+  }
+  
+  .titleimage {
+    height: 40px;
+    cursor: pointer;
+  }
+  
+  .room-name {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: "Jersey 10", sans-serif;
+    text-align: center;
+  }
+  
+  .header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .editor-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .compilation-panel {
+    width: 30%;
+    background-color: #1e1e1e;
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+    border-left: 1px solid #333;
+  }
+  
+  .compilation-panel h3 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+  }
+  
+  .result-content {
+    font-family: 'Consolas', monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  
+  .no-result {
+    color: #666;
+    font-style: italic;
+  }
+  
+  button {
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  button:hover {
+    background-color: #106ebe;
+  }
+  
+  pre {
+    margin: 0;
+    padding: 10px;
+    background-color: #252525;
+    border-radius: 4px;
+  }
