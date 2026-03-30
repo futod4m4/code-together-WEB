@@ -4,7 +4,7 @@ import Login from './pages/Auth/Login.jsx'
 import Register from "./pages/Auth/Register.jsx";
 import Room from "./pages/Rooms/Room.tsx"
 import CreateNewRoom from "./pages/Rooms/NewRoom.jsx";
-
+import Profile from "./pages/Profile.jsx";
 
 function App() {
   return (
@@ -12,9 +12,10 @@ function App() {
           <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/registration" element={<Register />} />
-              <Route path="/login" element={<Login />} />     
-              <Route path="/room/:joinCode" element={<Room />} />    
-              <Route path="/room/create" element={<CreateNewRoom />} />     
+              <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/room/:joinCode" element={<Room />} />
+              <Route path="/room/create" element={<CreateNewRoom />} />
           </Routes>
       </Router>
   );

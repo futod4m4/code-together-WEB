@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import "../../styles/button.css";
-import "../../styles/Register.css";
-import "../../styles/loginbutton.css";
-import "../../styles/checkbox.css";
-import titleImage from "../../assets/title.png";
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { API_URL } from '../../config'
+import '../../styles/App.css'
 
 function Register() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get('redirect') || '/';
   const [showPassword, setShowPassword] = useState(false);
   const [nickname, setNickname] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -17,54 +16,34 @@ function Register() {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [error, setError] = useState('');
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
   const register = async () => {
     if (password !== repeatPassword) {
       setError("Passwords don't match");
       return;
     }
-
     try {
-      const registerResponse = await fetch("http://localhost:8080/auth/register", {
+      const registerResponse = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nickname,
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          password
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nickname, first_name: firstName, last_name: lastName, email, password }),
       });
-
       const registerResult = await registerResponse.json();
-      
       if (registerResponse.ok) {
-        // After successful registration, attempt login
-        const loginResponse = await fetch("http://localhost:8080/auth/login", {
+        const loginResponse = await fetch(`${API_URL}/auth/login`, {
           method: "POST",
           credentials: 'include',
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
         });
-
         if (loginResponse.ok) {
-          navigate('/');
+          navigate(redirect);
         } else {
           setError('Login failed after registration');
         }
       } else {
         setError(registerResult.error || 'Registration failed');
       }
-    } catch (error) {
-      console.error("Error during registration:", error);
+    } catch {
       setError('Connection error');
     }
   };
@@ -75,107 +54,58 @@ function Register() {
   };
 
   return (
-    <>
-      <header className="header">
-        <img className="titleimage" src={titleImage} alt="Title" onClick={() => {navigate("/")}}/>
+    <div className="page">
+      <header className="page-header">
+        <span className="logo" onClick={() => navigate("/")}>CodeCollab</span>
       </header>
-      <div className="main">
-        <div className="block">
-          <div className="hdiv">
-            <p className="hp">Registration</p>
-          </div>
-          {error && <div className="error-message">{error}</div>}
-          <div className="inputdiv">
-            <div className="inputp">
-              <p>Email</p>
+
+      <main className="page-main">
+        <div className="auth-card">
+          <form className="card" onSubmit={handleSubmit}>
+            <h1 className="auth-title">Sign Up</h1>
+            {error && <div className="form-error">{error}</div>}
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <input className="input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
-            <input 
-              className="input" 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="inputdiv">
-            <p className="inputp">Nickname</p>
-            <input 
-              className="input" 
-              type="text"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              autoComplete="new-password" 
-            />
-          </div>
-          <div className="inputdiv">
-            <p className="inputp">First Name</p>
-            <input 
-              className="input" 
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              autoComplete="new-password" 
-            />
-          </div>
-          <div className="inputdiv">
-            <p className="inputp">Last Name</p>
-            <input 
-              className="input" 
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              autoComplete="new-password" 
-            />
-          </div>
-          <div className="inputdiv">
-            <p className="inputp">Password</p>
-            <input
-              className="input"
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="new-password"
-            />
-          </div>
-          <div className="inputdiv">
-            <p className="inputp">Repeat Password</p>
-            <input
-              className="input"
-              type={showPassword ? "text" : "password"}
-              value={repeatPassword}
-              onChange={(e) => setRepeatPassword(e.target.value)}
-              autoComplete="new-password"
-            />
-          </div>
-          <div className="showpassdiv">
-            <label className="container">
-              <input
-                type="checkbox"
-                onChange={togglePasswordVisibility}
-              />
-              <svg viewBox="0 0 64 64" height="1.4em" width="1.4em">
-                <path
-                  d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                  pathLength="575.0541381835938"
-                  className="path"
-                ></path>
-              </svg>
-            </label>
-            <p className="showpassp">Show Password</p>
-          </div>
-          <button className="joinbutton" onClick={handleSubmit}>
-            <a className="joinbuttontext">Sign up</a>
-          </button>
-          <button className="createbutton">
-            <a href="/login" className="createbuttontext">
-              Already have an account? Sign In
-            </a>
-          </button>
+            <div className="form-group">
+              <label className="form-label">Nickname</label>
+              <input className="input" type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} />
+            </div>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <div className="form-group" style={{ flex: 1 }}>
+                <label className="form-label">First name</label>
+                <input className="input" type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+              </div>
+              <div className="form-group" style={{ flex: 1 }}>
+                <label className="form-label">Last name</label>
+                <input className="input" type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="form-label">Password</label>
+              <input className="input" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Repeat password</label>
+              <input className="input" type={showPassword ? "text" : "password"} value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)} />
+            </div>
+            <div className="show-pass-row">
+              <input type="checkbox" id="show-pass" onChange={() => setShowPassword(!showPassword)} />
+              <label htmlFor="show-pass">Show password</label>
+            </div>
+            <button className="btn btn-primary" type="submit" style={{ width: '100%' }}>
+              Create account
+            </button>
+            <div className="auth-footer">
+              <a href="/login">Already have an account? Sign in</a>
+            </div>
+          </form>
         </div>
-      </div>
-      <footer className="footer">
-        <p>© Fedor Semerenko 2024</p>
-      </footer>
-    </>
+      </main>
+
+      <footer className="page-footer">Fedor Semerenko {new Date().getFullYear()}</footer>
+    </div>
   );
 }
 
